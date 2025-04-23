@@ -1,32 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObstacleMove : MonoBehaviour
 {
-    public Vector3 pointA;
-    public Vector3 pointB;
+    public Vector3 localOffset = new Vector3(6f, 0f, 0f); // Distance à parcourir
     public float speed = 2f;
-    private Vector3 target;
+
+    private Vector3 pointA;
+    private Vector3 pointB;
+    private Vector3 currentTarget;
 
     void Start()
     {
-        target = pointB;
+        pointA = transform.position;
+        pointB = pointA + localOffset;
+        currentTarget = pointB;
     }
 
     void Update()
     {
-        if (target == null || pointA == null || pointB == null) return;
+        transform.position = Vector3.MoveTowards(transform.position, currentTarget, speed * Time.deltaTime);
 
-        // Déplacer vers le point cible
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-
-        // Vérifier si atteint destination
-        if (Vector3.Distance(transform.position, target) < 0.05f)
+        if (Vector3.Distance(transform.position, currentTarget) < 0.05f)
         {
-            // Inverser la cible
-            target = (target == pointA) ? pointB : pointA;
+            currentTarget = (currentTarget == pointA) ? pointB : pointA;
         }
     }
 }
-
