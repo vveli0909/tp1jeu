@@ -1,17 +1,54 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FlameManager : MonoBehaviour
 {
-    public GameObject[] goals; // Objectifs avec feu (Box_01)
-    public GameObject currentGoal; // Actuel but allumé
-    public float timeBetweenFlames = 1f; // Temps avant de changer
+    public GameObject[] goals;             // Tous les buts
+    public GameObject currentGoal;         // Objectif actuel
+    private GameObject lastGoal;           // Dernier but visité
 
     private void Start()
     {
-        InvokeRepeating(nameof(ActivateRandomFlame), 0f, timeBetweenFlames);
+        // Allumer tous les goals au début
+        foreach (GameObject goal in goals)
+        {
+            goal.transform.Find("VFX_Fire").gameObject.SetActive(true);
+        }
+
+        ChooseNewGoal(null); // Premier goal, pas de précédent
     }
 
-    void ActivateRandomFlame()
+    public void GoalReached(GameObject reachedGoal)
+    {
+        // Éteindre la flamme de ce but
+        reachedGoal.transform.Find("VFX_Fire").gameObject.SetActive(false);
+
+        // Choisir un nouveau goal
+        ChooseNewGoal(reachedGoal);
+    }
+
+    void ChooseNewGoal(GameObject justReached)
+    {
+        // Rallumer le goal précédent si nécessaire
+        if (lastGoal != null && lastGoal != justReached)
+        {
+            lastGoal.transform.Find("VFX_Fire").gameObject.SetActive(true);
+        }
+
+        GameObject newGoal;
+      
+            do
+            {
+                newGoal = goals[Random.Range(0, goals.Length)];
+            }
+            while (newGoal == justReached && goals.Length > 1);
+
+        currentGoal = newGoal;
+        lastGoal = justReached;
+    }
+
+
+    /**void ActivateRandomFlame()
     {
         // Désactiver toutes les flammes
         foreach (GameObject goal in goals)
@@ -25,5 +62,5 @@ public class FlameManager : MonoBehaviour
 
         // Activer la flamme de celui-là
         currentGoal.transform.Find("VFX_Fire").gameObject.SetActive(true);
-    }
+    }**/
 }

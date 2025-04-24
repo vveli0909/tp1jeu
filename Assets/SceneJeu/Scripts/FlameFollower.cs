@@ -9,18 +9,30 @@ public class FlameFollower : MonoBehaviour
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        if (agent == null)
+        { 
+            agent = GetComponent<NavMeshAgent>();
+        }
+           
     }
 
     void Update()
     {
         GameObject target = flameManager.currentGoal;
 
-        // Si le but a changé, on le poursuit
         if (target != null && target != currentTarget)
         {
             currentTarget = target;
             agent.SetDestination(currentTarget.transform.position);
         }
+
+        if (currentTarget != null &&!agent.pathPending &&
+           agent.remainingDistance <= agent.stoppingDistance &&
+           (!agent.hasPath || agent.velocity.sqrMagnitude == 0f))
+        {
+            flameManager.GoalReached(currentTarget);
+            currentTarget = null;
+        }
+
     }
 }
