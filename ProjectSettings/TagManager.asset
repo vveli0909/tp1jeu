@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SlowZone
   - BoostZone
+  - CrawlZone
   layers:
   - Default
   - TransparentFX

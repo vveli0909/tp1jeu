@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SceneJeu/TemplateScene2.unity
     guid: c605edc71e19a4444b06bf738d984e94
+  - enabled: 1
+    path: Assets/SceneJeu/TemplateScene1.2.unity
+    guid: 75216b592fc7b0443847247b7fb5b443
   m_configObjects: {}

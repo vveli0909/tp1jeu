@@ -7,7 +7,7 @@ public class FlameFollower : MonoBehaviour
     public NavMeshAgent agent;
     public GameObject currentTarget;
 
-    void Start()
+    protected void Start()
     {
         if (agent == null)
         { 
@@ -16,7 +16,7 @@ public class FlameFollower : MonoBehaviour
            
     }
 
-    void Update()
+    protected void Update()
     {
         GameObject target = flameManager.currentGoal;
 
