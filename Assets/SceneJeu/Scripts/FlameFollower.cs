@@ -18,12 +18,15 @@ public class FlameFollower : MonoBehaviour
 
     protected void Update()
     {
+        if (agent == null || !agent.isOnNavMesh) return; 
+
         GameObject target = flameManager.currentGoal;
 
         if (target != null && target != currentTarget)
         {
             currentTarget = target;
-            agent.SetDestination(currentTarget.transform.position);
+            if (agent.isOnNavMesh)
+                agent.SetDestination(currentTarget.transform.position);
         }
 
         if (currentTarget != null &&!agent.pathPending &&

@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class FlameManager : MonoBehaviour
 {
-    public GameObject[] goals;             // Tous les buts
-    public GameObject currentGoal;         // Objectif actuel
-    private GameObject lastGoal;           // Dernier but visité
+    public GameObject[] goals;            
+    public GameObject currentGoal;         
+    private GameObject lastGoal;           
 
     private void Start()
     {
@@ -48,7 +48,7 @@ public class FlameManager : MonoBehaviour
     }
 
 
-    /**void ActivateRandomFlame()
+    void ActivateRandomFlame()
     {
         // Désactiver toutes les flammes
         foreach (GameObject goal in goals)
@@ -60,7 +60,6 @@ public class FlameManager : MonoBehaviour
         int randomIndex = Random.Range(0, 4);
         currentGoal = goals[randomIndex];
 
-        // Activer la flamme de celui-là
         currentGoal.transform.Find("VFX_Fire").gameObject.SetActive(true);
-    }**/
+    }
 }

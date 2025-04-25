@@ -5,9 +5,9 @@ using static UnityEngine.GraphicsBuffer;
 
 public class CameraPlayer : MonoBehaviour
 {
-    public Transform[] target;         // La capsule à suivre
-    public Vector3 offset = new Vector3(0, 5, -6); // Position relative
-    public float smoothSpeed = 5f;   // Vitesse de lissage du mouvement
+    public Transform[] target;        
+    public Vector3 offset = new Vector3(0, 5, -6); 
+    public float smoothSpeed = 5f;   
 
     private int currentTargetIndex = 0;
 
@@ -19,7 +19,7 @@ public class CameraPlayer : MonoBehaviour
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
         transform.position = smoothedPosition;
 
-        transform.LookAt(target[currentTargetIndex]); // Oriente la caméra vers la capsule
+        transform.LookAt(target[currentTargetIndex]); 
     }
 
     void Update()

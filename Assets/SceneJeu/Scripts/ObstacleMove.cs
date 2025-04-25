@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ObstacleMove : MonoBehaviour
 {
-    public Vector3 localOffset = new Vector3(6f, 0f, 0f); // Distance à parcourir
+    public Vector3 localOffset = new Vector3(6f, 0f, 0f); 
     public float speed = 2f;
 
     private Vector3 pointA;

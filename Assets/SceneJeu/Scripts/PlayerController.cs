@@ -8,11 +8,10 @@ public class PlayerController : FlameFollower
 {
     public Animator animator;
 
-    public float startSlowdownDistance = 6f; //  ralentissement commence plus tôt
-    public float walkDistance = 2f;          // Marche lente à cette distance
-    public float runSpeed = 3.5f;
-    public float walkSpeed = 1.5f;
-
+    public float walkDistanceStart = 6f;     
+    public float walkThreshold = 1.2f;       
+    public float runThreshold = 2.5f;        
+    private bool isAtGoal = false;
     protected  void Start()
     {
         base.Start();
@@ -21,30 +20,54 @@ public class PlayerController : FlameFollower
             animator = GetComponent<Animator>();
     }
 
-    protected  void Update()
+    protected void Update()
     {
         base.Update();
 
         if (agent != null && currentTarget != null)
         {
             float distance = Vector3.Distance(transform.position, currentTarget.transform.position);
-
-            // Calcul de la vitesse lissée
-            float targetSpeed = runSpeed;
-
-            if (distance < startSlowdownDistance)
-            {
-                // Interpolation progressive entre run et walk
-                float t = Mathf.InverseLerp(startSlowdownDistance, walkDistance, distance);
-                targetSpeed = Mathf.Lerp(walkSpeed, runSpeed, t);
-            }
+            float targetSpeed = (distance > walkDistanceStart) ? runThreshold : walkThreshold;
 
             agent.speed = targetSpeed;
 
-            // Mettre à jour l'animation
-            float trueSpeed = agent.velocity.magnitude;
-            animator.SetFloat("Speed", trueSpeed);
+            float realSpeed = agent.velocity.magnitude;
+
+         
+            if (realSpeed < walkThreshold && agent.remainingDistance > 4f)
+            {
+                realSpeed = runThreshold;
+            }
+
+            animator.SetFloat("Speed", realSpeed);
+
+
+
+           
+
+            bool hasArrived =
+            !agent.pathPending &&
+            agent.remainingDistance <= agent.stoppingDistance + 0.1f &&
+            (!agent.hasPath || agent.velocity.sqrMagnitude < 0.05f);
+
+            if (hasArrived && !isAtGoal)
+            {
+                isAtGoal = true;
+                agent.isStopped = true;
+                animator.SetTrigger("Salute");
+                
+            }
+
         }
+      
+    }
+
+    public void OnDoneAtGoal()
+    {
+        isAtGoal = false;
+        agent.isStopped = false;
+        flameManager.GoalReached(currentTarget);  
+        currentTarget = null;
     }
 }
 

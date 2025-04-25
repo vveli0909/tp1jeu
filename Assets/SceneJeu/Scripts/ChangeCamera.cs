@@ -9,14 +9,13 @@ public class ChangeCamera : MonoBehaviour
 
     void Start()
     {
-        SetFollowView(); // Par défaut sur la caméra de suivi
+        SetFollowView();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            // Toggle entre les deux
             if (cameraPlayer.gameObject.activeSelf)
                 SetOverviewView();
             else

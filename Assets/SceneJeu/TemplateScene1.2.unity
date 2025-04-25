@@ -3921,9 +3921,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1066808581}
   - component: {fileID: 1066808580}
+  - component: {fileID: 1066808582}
   m_Layer: 0
   m_Name: CrawlZone
-  m_TagString: CrawlZone
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3958,12 +3959,24 @@ Transform:
   m_GameObject: {fileID: 1066808579}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.85, y: 4.58, z: 5.04}
-  m_LocalScale: {x: 5, y: 1, z: 4}
+  m_LocalPosition: {x: 0.08, y: 1.37, z: 6.05}
+  m_LocalScale: {x: 3, y: 1, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1066808582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066808579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea6e9edc2bcf3f428124ebff90d632c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1077998872
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5313,9 +5326,10 @@ GameObject:
   - component: {fileID: 1412271886}
   - component: {fileID: 1412271888}
   - component: {fileID: 1412271887}
+  - component: {fileID: 1412271889}
   m_Layer: 0
   m_Name: Personnage
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5373,10 +5387,9 @@ MonoBehaviour:
   agent: {fileID: 1412271888}
   currentTarget: {fileID: 0}
   animator: {fileID: 1412271885}
-  startSlowdownDistance: 5
-  walkDistance: 2
-  runSpeed: 3.5
-  walkSpeed: 1.5
+  walkDistanceStart: 6
+  walkThreshold: 1.2
+  runThreshold: 2.5
 --- !u!54 &1412271887
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5426,6 +5439,29 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &1412271889
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412271883}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1455248907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6574,8 +6610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target:
-  - {fileID: 519514022}
-  - {fileID: 261441744}
+  - {fileID: 1412271884}
   offset: {x: 0, y: 5, z: -6}
   smoothSpeed: 5
 --- !u!81 &1936982305
